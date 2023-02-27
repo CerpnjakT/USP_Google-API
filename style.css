@@ -1,0 +1,109 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&family=Montserrat:wght@300&family=Roboto:ital,wght@0,300;0,400;1,900&display=swap');
+
+#map {
+    height: 90vh;
+    /* The height is 400 pixels */
+    width: 80%;
+    display: flex;
+    flex-direction: end;
+    margin-right:0;
+    margin-left:auto;
+    /* The width is the width of the web page */
+    
+    
+}
+
+#buttonLink {
+    
+    border: solid;
+    border-width: 1.5px;
+    border-radius: 10px;
+    color: #334E7A;
+    padding: 15px;
+    margin-left: 0px;
+    margin-top: 20px;
+    border-color: #334E7A;
+    background-color: white;
+    transition: 0.3s ease-out;
+
+}
+
+#buttonLink:hover {
+    border-color: white;
+    background-color: #334E7A;
+    color: white;
+    border-color: white;
+    
+
+}
+
+#content{
+    margin:15px;
+}
+
+#pageTitle{
+    /*text-align: center;*/
+    font-family: 'Fira Sans', sans-serif;
+    margin-left: 30px;
+}
+
+#sidePanel {
+    position:fixed;
+    background-color: rgb(6, 6, 15);
+    height: 90vh;
+    width: 20vw;
+    left:0;
+    
+}
+
+
+#sidePanelContent{
+    padding:30px;
+    font-family: 'Fira Sans', sans-serif;
+    color: white;
+    font-weight: 300;
+}
+
+
+/* range slider */
+
+.slidecontainer {
+    width: 100%; /* Width of the outside container */
+  }
+  
+  /* The slider itself */
+  .slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 25px; /* Specified height */
+    background: linear-gradient(to right, #A98AFF 0%, #A98AFF 50%, #fff 50%, #fff 100%);
+    /*background: rgb(235, 233, 233);*/
+    border-radius: 50px;
+    outline: none; /* Remove outline */
+    opacity: 0.9; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+  }
+  
+  /* Mouse-over effects */
+  .slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+  }
+  
+  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    border-radius: 50px;
+    border: 2px solid white;
+    background: #A98AFF; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+  }
+
+  
+  
+  
