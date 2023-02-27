@@ -2,7 +2,7 @@
     <html>
 
     <head>
-        <title>UPP Map Demo</title>
+        <title>USP Map Demo</title>
         <link rel="stylesheet" href="style.css">
         
         
@@ -13,27 +13,12 @@
     <body>
         <div id = "app"></div>
       <script src = 'index_bundle.js'></script>
-        <h3 id="pageTitle">UPP Map Demo</h3>
-        <div id="sidePanel">
-            <div id="sidePanelContent">
-            <h3><strong>Filter available plots</strong></h3>
-            <br>
-            <div class="slidecontainer">
-                <p>Area: &darr;<span id="area"></span><span> m2</span></p>
-                <input type="range" min="10000" max="100000" value="55000" step="100" class="slider" id="areaRange">
-              </div>
-            <br>
-            <div class="slidecontainer">
-              <p>Plot Price: &darr;<span id="price"></span><span> SR</span></p>
-              <input type="range" min="50000" max="200000" value="125000" step="100" class="slider" id="priceRange">
-            </div>
-            
-            </div>
-        </div>
+        <h3 id="pageTitle">USP Map Demo</h3>
+        
         <!--The div element for the map -->
         <div id="map"></div>
 
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDl9MxBVdTGFoBrodBmuVvVruBl-2Zo_RU&callback=initMap"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=[YOUR API-KEY]_RU&callback=initMap"></script>
 
     </body>
 

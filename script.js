@@ -4,13 +4,6 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-var areaSlider = document.getElementById("areaRange");
-var area = document.getElementById("area");
-area.innerHTML = numberWithCommas(areaSlider.value); // Display the default slider value
-
-var priceSlider = document.getElementById("priceRange");
-var price = document.getElementById("price");
-price.innerHTML = numberWithCommas(priceSlider.value);
 
 
 
@@ -71,6 +64,7 @@ var map;
 
             window.onload = function () {
                 initMap();
+                
             };
 
             function addMarkerInfo() {
@@ -144,21 +138,6 @@ function deleteMarkers() {
     markers = [];
   }
 
-// Update the current slider value (each time you drag the slider handle)
-areaSlider.oninput = function() {
-    area.innerHTML = numberWithCommas(this.value);
-    let value = (this.value-this.min)/(this.max-this.min)*100
-    this.style.background = 'linear-gradient(to right, #A98AFF 0%, #A98AFF ' + value + '%, #fff ' + value + '%, white 100%)'
-    deleteMarkers();
-    addMarkerInfo();
-  }
-  priceSlider.oninput = function() {
-      price.innerHTML = numberWithCommas(this.value);
-      let value = (this.value-this.min)/(this.max-this.min)*100
-    this.style.background = 'linear-gradient(to right, #A98AFF 0%, #A98AFF ' + value + '%, #fff ' + value + '%, white 100%)'
-    deleteMarkers();
-    addMarkerInfo();
-    }
 
 
 
