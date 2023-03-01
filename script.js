@@ -193,13 +193,13 @@ function DisplayHeatMap(map){
         let geo = feature.getGeometry();
         geo.forEachLatLng(function(LatLng){
             let coordinate = [LatLng.lat(),LatLng.lng()]
-            coordinates.push(LatLng);
-            console.log(LatLng);
+            coordinates.push(coordinate);
+            
         })
         });
         for(var i = 0; i< coordinates.length;i++){
             let dataPoint = {
-                location: coordinates[i],
+                location: new google.maps.LatLng(coordinates[i][0],coordinates[i][1]),
                 weight: weightValues[i]
             } 
                 
@@ -212,14 +212,6 @@ function DisplayHeatMap(map){
           });
           heatmap.setMap(map);
         });
-
-
-        
-       console.log(heatMapData);
-        var heatmap = new google.maps.visualization.HeatmapLayer({
-            data: heatMapData
-          });
-          heatmap.setMap(map);
 
 
 }
