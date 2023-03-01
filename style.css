@@ -3,15 +3,70 @@
 
 #map {
     height: 90vh;
-    /* The height is 400 pixels */
-    width: 80%;
+    width: 100%;
     display: flex;
     flex-direction: end;
     margin-right:0;
     margin-left:auto;
-    /* The width is the width of the web page */
+       
+}
+
+body{
+    background-color: black;
+    color: white;
     
     
+}
+
+#legend-rect{
+    fill: #e8ff4f;
+    
+}
+
+#legend-title{
+    position: fixed;
+    left: 2vw;
+    top:22vh;
+    z-index: 99;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.dropdown{
+    position: fixed;
+    right: 6vw;
+    top:7vh;
+    z-index: 99;
+    font-family:Arial, Helvetica, sans-serif;
+    
+}
+#content{
+    color:black;
+    font-family:Arial, Helvetica, sans-serif;
+}
+.dropdown>*{
+    font-size: medium;
+    padding:5px;
+}
+
+#legend{
+    left: 2vw;
+    top:25vh;
+    position:fixed;
+    display:flex;
+    flex-direction: column;
+    z-index: 99;
+}
+#legend >*{
+    color: black;
+    padding:5px;
+    font-family:Arial, Helvetica, sans-serif;
+    text-align: center;
+    background-color: white;
+}
+
+.info-image{
+    width:300px;
+    height: auto;
 }
 
 #buttonLink {
@@ -48,61 +103,12 @@
     margin-left: 30px;
 }
 
-#sidePanel {
-    position:fixed;
-    background-color: rgb(6, 6, 15);
-    height: 90vh;
-    width: 20vw;
-    left:0;
-    
-}
 
 
-#sidePanelContent{
-    padding:30px;
-    font-family: 'Fira Sans', sans-serif;
-    color: white;
-    font-weight: 300;
-}
 
 
-/* range slider */
 
-.slidecontainer {
-    width: 100%; /* Width of the outside container */
-  }
-  
-  /* The slider itself */
-  .slider {
-    -webkit-appearance: none;  /* Override default CSS styles */
-    appearance: none;
-    width: 100%; /* Full-width */
-    height: 25px; /* Specified height */
-    background: linear-gradient(to right, #A98AFF 0%, #A98AFF 50%, #fff 50%, #fff 100%);
-    /*background: rgb(235, 233, 233);*/
-    border-radius: 50px;
-    outline: none; /* Remove outline */
-    opacity: 0.9; /* Set transparency (for mouse-over effects on hover) */
-    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-    transition: opacity .2s;
-  }
-  
-  /* Mouse-over effects */
-  .slider:hover {
-    opacity: 1; /* Fully shown on mouse-over */
-  }
-  
-  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-  .slider::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Override default look */
-    appearance: none;
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
-    border-radius: 50px;
-    border: 2px solid white;
-    background: #A98AFF; /* Green background */
-    cursor: pointer; /* Cursor on hover */
-  }
+
 
   
   
