@@ -1,20 +1,22 @@
 
-
-
-
-
-
-
 //////map
+var dataLoaded = false;
+var features = null;
 var markers = [];
 var map;
-var heatmap;
+var heatmap = null;
 var InforObj = [];
 var centerCords = {
     lat: 1.351784,
     lng: 103.818200
 };
-
+const heatmapGradient = [
+    "rgba(249, 240, 108, 0)",
+    "rgba(249, 240, 108, 1)",
+    "rgba(210, 234, 243, 1)",
+    "rgba(244, 153, 193, 1)",
+    "rgba(238, 60, 150, 1)"
+  ];
 
 
 var markersOnMap = [{
@@ -64,25 +66,26 @@ var markersOnMap = [{
 ];
 
 window.onload = function () {
-    initMap();
-    
+    initMap();  
 };
 
-function initMap() {
 
-    
-    var legendTitle = 'value name'
+function initMap() {
     
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 13,
         center: centerCords,
         mapId: '2e3ea0c32b743370'
     });
+
     
-    ShowMarkers();
+
+    
       //hide all the legends
-    //document.getElementById("legend-circles").style.display = "none";
-    
+    document.getElementById("legend-heatmap").style.display = "none";
+   
+      
+     
 
 }
 
@@ -136,84 +139,81 @@ function addMarkerInfo() {
 
 function closeOtherInfo() {
     if (InforObj.length > 0) {
-        /* detach the info-window from the marker ... undocumented in the API docs */
+        
         InforObj[0].set("marker", null);
-        /* and close it */
+        
         InforObj[0].close();
-        /* blank the array */
+        
         InforObj.length = 0;
     }
 }
 
 
 
-function DisplayData(map, jsonDataPath, property, legendTitle){
-       var legendValues = [];
+function DisplayData(map, jsonDataPath, property){
+    dataLoaded = true; 
     map.data.loadGeoJson(jsonDataPath, {}, function(feature) { 
-        map.data.forEach(function(feature){
-        legendValues.push(feature.getProperty(property));
-        })
-        DisplayLegend(map,legendValues, legendTitle);
+        map.data.setStyle(function(feature){  
+            var svgCircle = {
+                path: "M -2 0 a 2,2 0 1,1 4, 0 a 2,2 0 1,1 -4,0",
+                fillColor: 'yellow',
+                fillOpacity: 0.9,
+                strokeWeight: 0,
+                rotation: 0,
+                scale: feature.getProperty(property)*2,
+                anchor: new google.maps.Point(0,0)
+                };
+            return{icon: svgCircle};
         });
-
-    map.data.setStyle(function(feature){  
-        var svgCircle = {
-            path: "M -2 0 a 2,2 0 1,1 4, 0 a 2,2 0 1,1 -4,0",
-            fillColor: 'yellow',
-            fillOpacity: 0.9,
-            strokeWeight: 0,
-            rotation: 0,
-            scale: feature.getProperty('weight')*2,
-            anchor: new google.maps.Point(0,0)
-            };
-        //legendValues.push(feature.getProperty('weight'));
-        return{icon: svgCircle};
     });
+};
 
-    /*map.data.setStyle({
-        icon: './assets/marker.png',
-      });
-      new google.maps.LatLng(103.74710045407312,1.3267064912460995), 
-        new google.maps.LatLng(103.74693813033042, 1.3346582095737887),
-        new google.maps.LatLng(103.73609345668541, 1.3458016569619673)
-      */
-}
+
 function DisplayHeatMap(map){
+    var legendTitle= "Heatmap weight";
+    jsonDataPath= './assets/data_points.json'
     var heatMapData = [];
-
+    var legendValues = [];
     var weightValues = [];
     var coordinates = [];
     var weight= 'weight';
-    jsonDataPath = './assets/data_points.json'
-
-
+    var radius= 50;
+    
     map.data.loadGeoJson(jsonDataPath, {}, function(feature){ 
         map.data.forEach(function(feature){
-        weightValues.push(feature.getProperty("weight"));
+        weightValues.push(feature.getProperty(weight));
+        legendValues.push(feature.getProperty(weight));
         let geo = feature.getGeometry();
         geo.forEachLatLng(function(LatLng){
             let coordinate = [LatLng.lat(),LatLng.lng()]
             coordinates.push(coordinate);
-            
         })
+        DisplayLegend(map,legendValues, legendTitle);
         });
+        
         for(var i = 0; i< coordinates.length;i++){
             let dataPoint = {
                 location: new google.maps.LatLng(coordinates[i][0],coordinates[i][1]),
-                weight: weightValues[i]
+                weight: weightValues[i]*3
             } 
-                
-            
+
             heatMapData.push(dataPoint);
         }
         console.log(heatMapData);
-        var heatmap = new google.maps.visualization.HeatmapLayer({
+        heatmap = new google.maps.visualization.HeatmapLayer({
             data: heatMapData
           });
           heatmap.setMap(map);
-        });
+          heatmap.set('radius', radius);
+          heatmap.set("gradient", heatmapGradient);
+    });
+    
+}
 
-
+function RemoveData(features){
+    for (var i = 0; i < features.length; i++){
+      map.data.remove(features[i]);
+  }
 }
 
 
@@ -235,26 +235,33 @@ function DisplayLegend(map, legendValues, legendTitle){
 
 function ShowCircles(){
     //first hide all the other data
-    map.data.setStyle({visible: false});
+    map.data.setStyle({visible: true});
+    
+    if(heatmap){heatmap.setMap(null)};
     if(markers.length>0){deleteMarkers();};
+    document.getElementById("legend-heatmap").style.display = "none";
 
     jsonDataPath= './assets/data_points.json'
     property= "weight";
-    legendTitle= "Circle Radius";
+    DisplayData(map, jsonDataPath, property);
     
-    DisplayData(map, jsonDataPath, property, legendTitle);
-    document.getElementById("legend-circles").style.display = "block";
 }
 
 function ShowMarkers(){
     map.data.setStyle({visible: false});
-    document.getElementById("legend-circles").style.display = "none";
+    if(heatmap){heatmap.setMap(null)};
+    document.getElementById("legend-heatmap").style.display = "none";
     addMarkerInfo(); 
 }
 
-function ShowHeatmap(map){
-    
+function ShowHeatmap(){
+    map.data.setStyle({visible: false});
+    document.getElementById("legend-heatmap").style.display = "block";
+    if(markers.length>0){deleteMarkers();};
+    if(heatmap){heatmap.setMap(map);}
+    else{
     DisplayHeatMap(map);
+    }
 }
 
 
@@ -263,10 +270,10 @@ function MapToggle(){
     console.log(mapType);
     if(mapType == "1"){ShowCircles();}
     else if(mapType == "2"){ShowMarkers();}
+    else if(mapType == "3"){ShowHeatmap();}
     else{map.data.setStyle({visible: false});
-        document.getElementById("legend-circles").style.display = "none";
+        document.getElementById("legend-heatmap").style.display = "none";
         };
-
 }
 
 // Sets the map on all markers in the array.
