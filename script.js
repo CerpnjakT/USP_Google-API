@@ -75,12 +75,12 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 13,
         center: centerCords,
-        mapId: '2e3ea0c32b743370'
+        mapId: 'fea25608858c0b5b'
     });
 
     
 
-    
+    ShowMarkers();
       //hide all the legends
     document.getElementById("legend-heatmap").style.display = "none";
    
